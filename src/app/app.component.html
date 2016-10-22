@@ -1,3 +1,21 @@
-<h1>
-  {{title}}
-</h1>
+<md-toolbar color="warn">
+  <span>Angular2Twitter</span>
+</md-toolbar>
+
+<md-tab-group [selectedIndex]="0">
+  <md-tab>
+    <template md-tab-label>
+      <i class="material-icons md-36">home</i>
+    </template>
+  </md-tab>
+  <md-tab>
+    <template md-tab-label>
+      <i class="material-icons md-36">people</i>
+    </template>
+  </md-tab>
+  <md-tab>
+    <template md-tab-label>
+      <i class="material-icons md-36">face</i>
+    </template>
+  </md-tab>
+</md-tab-group>
