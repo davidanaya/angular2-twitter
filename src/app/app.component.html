@@ -5,17 +5,19 @@
 <md-tab-group [selectedIndex]="0">
   <md-tab>
     <template md-tab-label>
-      <i class="material-icons md-36">home</i>
+      <a [routerLink]="['home']"><i class="material-icons md-36">home</i></a>
     </template>
   </md-tab>
   <md-tab>
     <template md-tab-label>
-      <i class="material-icons md-36">people</i>
+      <a [routerLink]="['people']"><i class="material-icons md-36">people</i></a>
     </template>
   </md-tab>
   <md-tab>
     <template md-tab-label>
-      <i class="material-icons md-36">face</i>
+      <a [routerLink]="['face']"><i class="material-icons md-36">face</i></a>
     </template>
   </md-tab>
 </md-tab-group>
+
+<router-outlet></router-outlet>
