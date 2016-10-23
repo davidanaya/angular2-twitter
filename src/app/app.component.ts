@@ -1,23 +1,22 @@
 import { Component } from '@angular/core';
 import { Routes } from '@angular/router';
 
-import { FaceComponent } from './face/face.component';
-import { PeopleComponent } from './people/people.component';
-import { HomeComponent } from './home/home.component';
+import { FaceComponent } from './components/face/face.component';
+import { PeopleComponent } from './components/people/people.component';
+import { HomeComponent } from './components/home/home.component';
+import { LoggedInGuard } from './guards/loggedIn.guard';
 
 @Component({
   selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  templateUrl: './app.component.html'
 })
 export class AppComponent {
-  title = 'app works!';
 }
 
 export const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
-  { path: 'home', component: HomeComponent },
-  { path: 'people', component: PeopleComponent },
-  { path: 'face/:id', component: FaceComponent },
-  { path: 'face', component: FaceComponent }
+  { path: 'home', component: HomeComponent, canActivate: [ LoggedInGuard ] },
+  { path: 'people', component: PeopleComponent, canActivate: [ LoggedInGuard ] },
+  { path: 'face/:id', component: FaceComponent, canActivate: [ LoggedInGuard ] },
+  { path: 'face', component: FaceComponent, canActivate: [ LoggedInGuard ] }
 ];

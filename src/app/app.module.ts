@@ -7,16 +7,20 @@ import { RouterModule } from '@angular/router';
 import { LocationStrategy, HashLocationStrategy, APP_BASE_HREF } from '@angular/common';
 
 import { AppComponent, routes } from './app.component';
-import { FaceComponent } from './face/face.component';
-import { PeopleComponent } from './people/people.component';
-import { HomeComponent } from './home/home.component';
+import { FaceComponent } from './components/face/face.component';
+import { PeopleComponent } from './components/people/people.component';
+import { HomeComponent } from './components/home/home.component';
+import { LoginComponent } from './components/login/login.component';
+import { LoggedInGuard } from './guards/loggedIn.guard';
+import { AUTH_PROVIDERS } from './services/auth.service';
 
 @NgModule({
   declarations: [
     AppComponent,
     FaceComponent,
     PeopleComponent,
-    HomeComponent
+    HomeComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -25,11 +29,15 @@ import { HomeComponent } from './home/home.component';
     MaterialModule.forRoot()
   ],
   providers: [
+    AUTH_PROVIDERS,
+    LoggedInGuard,
     { provide: LocationStrategy, useClass: HashLocationStrategy },
     { provide: APP_BASE_HREF, useValue: '/' }
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}
 
-platformBrowserDynamic().bootstrapModule(AppModule);
+platformBrowserDynamic().bootstrapModule(AppModule)
+    .catch((err: any) => console.error(err));

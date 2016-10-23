@@ -2,9 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
-  selector: 'app-face',
-  templateUrl: './face.component.html',
-  styleUrls: ['./face.component.css']
+  selector: 'face',
+  templateUrl: './face.component.html'
 })
 export class FaceComponent implements OnInit {
   id: string;
