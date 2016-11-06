@@ -13,6 +13,9 @@ import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';
 import { LoggedInGuard } from './guards/loggedIn.guard';
 import { AUTH_PROVIDERS } from './services/auth.service';
+import { TimelineComponent } from './components/timeline/timeline.component';
+import { TweetComponent } from './components/tweet/tweet.component';
+import { TweetService } from './components/tweet/tweet.service';
 
 @NgModule({
   declarations: [
@@ -20,7 +23,9 @@ import { AUTH_PROVIDERS } from './services/auth.service';
     FaceComponent,
     PeopleComponent,
     HomeComponent,
-    LoginComponent
+    LoginComponent,
+    TimelineComponent,
+    TweetComponent
   ],
   imports: [
     BrowserModule,
@@ -30,6 +35,7 @@ import { AUTH_PROVIDERS } from './services/auth.service';
   ],
   providers: [
     AUTH_PROVIDERS,
+    { provide: TweetService, useClass: TweetService },
     LoggedInGuard,
     { provide: LocationStrategy, useClass: HashLocationStrategy },
     { provide: APP_BASE_HREF, useValue: '/' }

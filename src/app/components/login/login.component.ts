@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { AuthService } from '../../services/auth.service';
 
@@ -9,7 +10,7 @@ import { AuthService } from '../../services/auth.service';
 export class LoginComponent implements OnInit {
   message: string;
 
-  constructor(private authService: AuthService) {
+  constructor(private authService: AuthService, private router: Router) {
     this.message = '';
   }
 
@@ -20,8 +21,11 @@ export class LoginComponent implements OnInit {
       setTimeout(function() {
         this.message = '';
       }.bind(this), 2500);
+      return false;
+    } else {
+      this.router.navigate(['home']);
     }
-    return false;
+    
   }
 
   logout(): boolean {
