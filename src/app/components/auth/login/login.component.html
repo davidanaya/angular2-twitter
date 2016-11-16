@@ -1,0 +1,10 @@
+<h1>Login</h1>
+<auth-form
+    [user]="user"
+    [message]="error"
+    [button]="'Log in'"
+    (onSubmit)="login($event)">
+</auth-form>
+<div>
+    <a [routerLink]="'/auth/register'">Don´t have an account? Create one here.</a>
+</div>

@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { AuthService } from '../../services/auth.service';
+import { AuthService } from '../auth/auth.service';
 
 @Component({
-  selector: 'login',
-  templateUrl: './login.component.html'
+  selector: 'login2',
+  templateUrl: './login2.component.html'
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent2 implements OnInit {
   message: string;
 
   constructor(private authService: AuthService, private router: Router) {
@@ -16,6 +16,8 @@ export class LoginComponent implements OnInit {
 
   login(username: string, password: string): boolean {
     this.message = '';
+    return true;
+    /*
     if (!this.authService.login(username, password)) {
       this.message = 'Incorrect credentials.';
       setTimeout(function() {
@@ -25,7 +27,7 @@ export class LoginComponent implements OnInit {
     } else {
       this.router.navigate(['home']);
     }
-    
+    */
   }
 
   logout(): boolean {

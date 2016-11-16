@@ -10,9 +10,11 @@ import { AppComponent, routes } from './app.component';
 import { FaceComponent } from './components/face/face.component';
 import { PeopleComponent } from './components/people/people.component';
 import { HomeComponent } from './components/home/home.component';
-import { LoginComponent } from './components/login/login.component';
+import { LoginComponent } from './components/auth/login/login.component';
+import { RegisterComponent } from './components/auth/register/register.component';
+import { AuthFormComponent } from './components/auth/auth-form/auth-form.component';
 import { LoggedInGuard } from './guards/loggedIn.guard';
-import { AUTH_PROVIDERS } from './services/auth.service';
+import { AUTH_PROVIDERS } from './components/auth/auth.service';
 import { TimelineComponent } from './components/timeline/timeline.component';
 import { TweetComponent } from './components/tweet/tweet.component';
 import { TweetService } from './components/tweet/tweet.service';
@@ -24,8 +26,10 @@ import { TweetService } from './components/tweet/tweet.service';
     PeopleComponent,
     HomeComponent,
     LoginComponent,
+    RegisterComponent,
     TimelineComponent,
-    TweetComponent
+    TweetComponent,
+    AuthFormComponent
   ],
   imports: [
     BrowserModule,
