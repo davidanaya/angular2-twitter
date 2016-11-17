@@ -1,37 +1,32 @@
 import { Injectable } from '@angular/core';
+import { AngularFire } from 'angularfire2';
 
 @Injectable()
 export class AuthService {
-
-  constructor() {
+  private authData: any = null;
+  
+  constructor(private af: AngularFire) {
   }
 
-  register(user: any): boolean {
-    console.log(`in register with ${user.username}/${user.password}`);
-    localStorage.setItem('username', user.username);
-    localStorage.setItem('password', user.password);
-    return true;
+  private storeAuthData(response) {
+    this.authData = response;
+    return this.authData;
   }
 
-  private checkUsername(username: string): boolean {
-    return username === localStorage.getItem('username');
+  register(user: any): any {
+    return this.af.auth
+      .createUser(user)
+      .then(response => this.storeAuthData(response));
   }
 
-  private checkPassword(password: string): boolean {
-    return password === localStorage.getItem('password');
-  }
-
-  login(user: any): boolean {
-    console.log(`in login with ${user.username}/${user.password}`);
-    return this.checkUsername(user.username) && this.checkPassword(user.password);
-  }
-
-  logout(): any {
-    localStorage.removeItem('username');
+  login(user: any): any {
+    return this.af.auth
+      .login(user)
+      .then(response => this.storeAuthData(response));
   }
 
   getUser(): any {
-    return localStorage.getItem('username');
+    return localStorage.getItem('email');
   }
 
   isLoggedIn(): boolean {

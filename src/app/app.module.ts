@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { MaterialModule } from '@angular/material';
 import { RouterModule } from '@angular/router';
 import { LocationStrategy, HashLocationStrategy, APP_BASE_HREF } from '@angular/common';
+import { AngularFireModule, AuthProviders, AuthMethods } from 'angularfire2';
 
 import { AppComponent, routes } from './app.component';
 import { FaceComponent } from './components/face/face.component';
@@ -18,6 +19,19 @@ import { AUTH_PROVIDERS } from './components/auth/auth.service';
 import { TimelineComponent } from './components/timeline/timeline.component';
 import { TweetComponent } from './components/tweet/tweet.component';
 import { TweetService } from './components/tweet/tweet.service';
+
+const firebaseConfig = {
+  apiKey: "AIzaSyA0F2dWFY9djrRje8oHHN_5f1dQWTl6arg",
+  authDomain: "knowtwitter-ed0fa.firebaseapp.com",
+  databaseURL: "https://knowtwitter-ed0fa.firebaseio.com",
+  storageBucket: "knowtwitter-ed0fa.appspot.com",
+  messagingSenderId: "132647063045"
+};
+
+const firebaseAuthConfig = {
+  provider: AuthProviders.Password,
+  method: AuthMethods.Password
+}
 
 @NgModule({
   declarations: [
@@ -35,6 +49,7 @@ import { TweetService } from './components/tweet/tweet.service';
     BrowserModule,
     FormsModule,
     RouterModule.forRoot(routes),
+    AngularFireModule.initializeApp(firebaseConfig, firebaseAuthConfig),
     MaterialModule.forRoot()
   ],
   providers: [

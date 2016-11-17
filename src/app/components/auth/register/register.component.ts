@@ -14,14 +14,19 @@ export class RegisterComponent implements OnInit {
   constructor(private authService: AuthService) {
   }
 
-  register(event) {
-    this.authService.register(event.user);
+  createUser(event) {
+    return this.authService
+      .register(event.user)
+      .then(
+        user => console.log('Success!'), 
+        reason => this.error = reason.message
+      );
   }
 
   ngOnInit() {
     this.error = null;
     this.user = {
-      username: '',
+      email: '',
       password: ''
     }
   }
