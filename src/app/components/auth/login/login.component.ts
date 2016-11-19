@@ -11,14 +11,17 @@ export class LoginComponent implements OnInit {
   private error: string;
   private user: any;
 
-  constructor(private authService: AuthService) {
+  constructor(private authService: AuthService, private router: Router) {
   }
 
   loginUser(event) {
     return this.authService
       .login(event.user)
       .then(
-        user => console.log('Success!'), 
+        () => {
+          let redirect = this.authService.redirectUrl ? this.authService.redirectUrl : 'app';
+          this.router.navigate([redirect]);
+        }, 
         reason => this.error = reason.message
       );
   }

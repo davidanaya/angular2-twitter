@@ -1,12 +1,13 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Routes } from '@angular/router';
 
 import { FaceComponent } from './components/face/face.component';
 import { PeopleComponent } from './components/people/people.component';
+import { TimelineComponent } from './components/timeline/timeline.component';
 import { HomeComponent } from './components/home/home.component';
-import { LoggedInGuard } from './guards/loggedIn.guard';
 import { TweetService } from './components/tweet/tweet.service';
 
+import { AuthService } from './components/auth/auth.service';
 import { LoginComponent } from './components/auth/login/login.component';
 import { RegisterComponent } from './components/auth/register/register.component';
 
@@ -14,32 +15,31 @@ import { RegisterComponent } from './components/auth/register/register.component
   selector: 'app-root',
   templateUrl: './app.component.html'
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
+  private user: any = null;
 
-  constructor(private tweetService: TweetService) {
+  constructor(private tweetService: TweetService, private authService: AuthService) {
   }
 
-  public sendTweet() {
+  logout() {
+    this.authService.logout();
+  }
+
+  isAuthenticated() {
+    return this.authService.isAuthenticated();
+  }
+
+  getUserEmail() {
+    if (!this.user) this.user = this.authService.getUser();
+    return this.user.auth.email;
+  }
+
+  sendTweet() {
     this.tweetService.sendTweet();
   }
-}
 
-export const routes: Routes = [
-  { path: '', redirectTo: '/auth/login', pathMatch: 'full' },
-  { path: 'auth', 
-    children: [
-      { path: 'login',
-        component: LoginComponent
-      },
-      { path: 'register',
-        component: RegisterComponent
-      }
-    ]
+  ngOnInit() {
+    this.user = this.authService.getUser();
   }
-  /*,
-  { path: 'home', component: HomeComponent, canActivate: [ LoggedInGuard ] },
-  { path: 'people', component: PeopleComponent, canActivate: [ LoggedInGuard ] },
-  { path: 'face/:id', component: FaceComponent, canActivate: [ LoggedInGuard ] },
-  { path: 'face', component: FaceComponent, canActivate: [ LoggedInGuard ] }
-  */
-];
+
+}

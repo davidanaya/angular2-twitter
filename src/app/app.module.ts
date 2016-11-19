@@ -1,24 +1,23 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
 import { MaterialModule } from '@angular/material';
 import { RouterModule } from '@angular/router';
 import { LocationStrategy, HashLocationStrategy, APP_BASE_HREF } from '@angular/common';
 import { AngularFireModule, AuthProviders, AuthMethods } from 'angularfire2';
 
-import { AppComponent, routes } from './app.component';
+import { AppComponent } from './app.component';
 import { FaceComponent } from './components/face/face.component';
 import { PeopleComponent } from './components/people/people.component';
 import { HomeComponent } from './components/home/home.component';
-import { LoginComponent } from './components/auth/login/login.component';
-import { RegisterComponent } from './components/auth/register/register.component';
-import { AuthFormComponent } from './components/auth/auth-form/auth-form.component';
-import { LoggedInGuard } from './guards/loggedIn.guard';
 import { AUTH_PROVIDERS } from './components/auth/auth.service';
+import { AuthGuard } from './components/auth/auth.guard';
+import { AuthModule } from './components/auth/auth.module';
 import { TimelineComponent } from './components/timeline/timeline.component';
 import { TweetComponent } from './components/tweet/tweet.component';
 import { TweetService } from './components/tweet/tweet.service';
+
+import { routing } from './app.routing';
 
 const firebaseConfig = {
   apiKey: "AIzaSyA0F2dWFY9djrRje8oHHN_5f1dQWTl6arg",
@@ -39,23 +38,20 @@ const firebaseAuthConfig = {
     FaceComponent,
     PeopleComponent,
     HomeComponent,
-    LoginComponent,
-    RegisterComponent,
     TimelineComponent,
-    TweetComponent,
-    AuthFormComponent
+    TweetComponent
   ],
   imports: [
+    routing,
     BrowserModule,
-    FormsModule,
-    RouterModule.forRoot(routes),
+    AuthModule,
     AngularFireModule.initializeApp(firebaseConfig, firebaseAuthConfig),
     MaterialModule.forRoot()
   ],
   providers: [
     AUTH_PROVIDERS,
     { provide: TweetService, useClass: TweetService },
-    LoggedInGuard,
+    AuthGuard,
     { provide: LocationStrategy, useClass: HashLocationStrategy },
     { provide: APP_BASE_HREF, useValue: '/' }
   ],

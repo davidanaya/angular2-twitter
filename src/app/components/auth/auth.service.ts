@@ -5,12 +5,20 @@ import { AngularFire } from 'angularfire2';
 export class AuthService {
   private authData: any = null;
   
+  // store the URL so we can redirect after logging in
+  redirectUrl: string;
+  
   constructor(private af: AngularFire) {
   }
 
   private storeAuthData(response) {
     this.authData = response;
+    localStorage.setItem('authData', JSON.stringify(this.authData));
     return this.authData;
+  }
+
+  private getUserFromLocalStorage() {
+    return JSON.parse(localStorage.getItem('authData'));
   }
 
   register(user: any): any {
@@ -25,12 +33,23 @@ export class AuthService {
       .then(response => this.storeAuthData(response));
   }
 
-  getUser(): any {
-    return localStorage.getItem('email');
+  isAuthenticated(): boolean {
+    if (this.authData) return true;
+
+    // check localStorage in case of page refresh
+    this.authData = this.getUserFromLocalStorage();
+    return !!this.authData;
   }
 
-  isLoggedIn(): boolean {
-    return this.getUser() !== null;
+  getUser(): any {
+    if (!this.authData) this.authData = this.getUserFromLocalStorage();
+    return this.authData;
+  }
+
+  logout(): any {
+    this.af.auth.logout();
+    this.authData = null;
+    localStorage.removeItem('authData');
   }
 
 }

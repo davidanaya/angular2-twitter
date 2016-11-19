@@ -1,37 +1,31 @@
-<!--
 <md-toolbar color="warn">
   <span>Angular2Twitter</span>
 </md-toolbar>
 
-<md-tab-group [selectedIndex]="0">
-  <md-tab>
-    <template md-tab-label>
-      <a [routerLink]="['home']"><i class="material-icons md-36">home</i></a>
-    </template>
-  </md-tab>
-  <md-tab>
-    <template md-tab-label>
-      <a [routerLink]="['people']"><i class="material-icons md-36">people</i></a>
-    </template>
-  </md-tab>
-  <md-tab>
-    <template md-tab-label>
-      <a [routerLink]="['face']"><i class="material-icons md-36">face</i></a>
-    </template>
-  </md-tab>
-</md-tab-group>
-
-<button md-fab (click)="sendTweet()">
-    <md-icon class="md-24">create</md-icon>
-</button>
-
-<div id="content">
-  <div class="container">
-    <login></login>
-    <hr>
-    <router-outlet></router-outlet>
+<div *ngIf="isAuthenticated()">
+  <md-tab-group [selectedIndex]="0">
+    <md-tab>
+      <template md-tab-label>
+        <a [routerLink]="['home']"><i class="material-icons md-36">home</i></a>
+      </template>
+    </md-tab>
+    <md-tab>
+      <template md-tab-label>
+        <a [routerLink]="['people']"><i class="material-icons md-36">people</i></a>
+      </template>
+    </md-tab>
+    <md-tab>
+      <template md-tab-label>
+        <a [routerLink]="['face']"><i class="material-icons md-36">face</i></a>
+      </template>
+    </md-tab>
+  </md-tab-group>
+  <div class="well">
+    Logged in as <b>{{ getUserEmail() }}</b> <a href (click)="logout()">Log out</a>
   </div>
+  <button md-fab (click)="sendTweet()">
+    <md-icon class="md-24">create</md-icon>
+  </button>
 </div>
--->
 
 <router-outlet></router-outlet>

@@ -11,14 +11,17 @@ export class RegisterComponent implements OnInit {
   private error: string;
   private user: any;
 
-  constructor(private authService: AuthService) {
+  constructor(private authService: AuthService, private router: Router) {
   }
 
   createUser(event) {
     return this.authService
       .register(event.user)
       .then(
-        user => console.log('Success!'), 
+        () => {
+          let redirect = this.authService.redirectUrl ? this.authService.redirectUrl : 'app';
+          this.router.navigate([redirect]);
+        },
         reason => this.error = reason.message
       );
   }
