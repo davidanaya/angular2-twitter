@@ -9,7 +9,6 @@ import { AngularFireModule, AuthProviders, AuthMethods } from 'angularfire2';
 import { AppComponent } from './app.component';
 import { FaceComponent } from './components/face/face.component';
 import { PeopleComponent } from './components/people/people.component';
-import { HomeComponent } from './components/home/home.component';
 import { AUTH_PROVIDERS } from './components/auth/auth.service';
 import { AuthGuard } from './components/auth/auth.guard';
 import { AuthModule } from './components/auth/auth.module';
@@ -37,7 +36,6 @@ const firebaseAuthConfig = {
     AppComponent,
     FaceComponent,
     PeopleComponent,
-    HomeComponent,
     TimelineComponent,
     TweetComponent
   ],

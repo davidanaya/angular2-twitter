@@ -4,7 +4,6 @@ import { Routes } from '@angular/router';
 import { FaceComponent } from './components/face/face.component';
 import { PeopleComponent } from './components/people/people.component';
 import { TimelineComponent } from './components/timeline/timeline.component';
-import { HomeComponent } from './components/home/home.component';
 import { TweetService } from './components/tweet/tweet.service';
 
 import { AuthService } from './components/auth/auth.service';
