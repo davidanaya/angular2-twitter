@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Routes } from '@angular/router';
 
-import { FaceComponent } from './components/face/face.component';
+import { ProfileComponent } from './components/profile/profile.component';
 import { PeopleComponent } from './components/people/people.component';
 import { TimelineComponent } from './components/timeline/timeline.component';
 import { TweetService } from './components/tweet/tweet.service';
@@ -30,7 +30,7 @@ export class AppComponent implements OnInit {
 
   getUserEmail() {
     if (!this.user) this.user = this.authService.getUser();
-    return this.user.auth.email;
+    return this.user.email;
   }
 
   sendTweet() {

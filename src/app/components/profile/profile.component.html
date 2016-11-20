@@ -1,0 +1,7 @@
+<md-card *ngFor="let user of users | async | profile:uid">
+  <img class="md-card-image" [src]="user.image" />
+  <md-card-content layout="column">
+    <h4><i>@{{user.username}}</i></h4>
+    <p>user.bio</p>			
+  </md-card-content>                                   
+</md-card>

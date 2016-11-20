@@ -24,13 +24,13 @@ export class AuthService {
   register(user: any): any {
     return this.af.auth
       .createUser(user)
-      .then(response => this.storeAuthData(response));
+      .then(response => this.storeAuthData(response.auth));
   }
 
   login(user: any): any {
     return this.af.auth
       .login(user)
-      .then(response => this.storeAuthData(response));
+      .then(response => this.storeAuthData(response.auth));
   }
 
   isAuthenticated(): boolean {

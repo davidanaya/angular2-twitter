@@ -1,4 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+
+import { FirebaseListObservable } from 'angularfire2';
+
+import { UsersService } from '../../shared/services/users.service';
 
 @Component({
   selector: 'app-people',
@@ -6,9 +11,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PeopleComponent implements OnInit {
 
-  constructor() { }
+  private users: FirebaseListObservable<any[]>;
+
+  constructor(
+    private route: ActivatedRoute, 
+    private usersService: UsersService) {
+  }
 
   ngOnInit() {
+    this.users = this.usersService.getAll();
   }
 
 }

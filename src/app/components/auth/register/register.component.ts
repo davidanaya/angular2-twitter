@@ -20,7 +20,7 @@ export class RegisterComponent implements OnInit {
       .then(
         () => {
           let redirect = this.authService.redirectUrl ? this.authService.redirectUrl : 'app';
-          this.router.navigate([redirect]);
+          this.router.navigate(['registered', {redirect: redirect}]);
         },
         reason => this.error = reason.message
       );
