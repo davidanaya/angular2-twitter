@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Component, OnInit, EventEmitter } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { FirebaseListObservable } from 'angularfire2';
 
@@ -14,8 +14,13 @@ export class PeopleComponent implements OnInit {
   private users: FirebaseListObservable<any[]>;
 
   constructor(
-    private route: ActivatedRoute, 
-    private usersService: UsersService) {
+    private usersService: UsersService,
+    private router: Router) {
+  }
+
+  viewProfile(uid: string) {
+    this.router.navigate(['profile', {uid: uid}]);
+    new EventEmitter();
   }
 
   ngOnInit() {

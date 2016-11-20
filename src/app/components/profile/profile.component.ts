@@ -21,7 +21,10 @@ export class ProfileComponent implements OnInit {
     private usersService: UsersService,
     private router: Router) {
 
-    if (route.snapshot.params['uid']) this.uid = route.snapshot.params['uid'];
+    if (route.snapshot.params['uid']) {
+      this.uid = route.snapshot.params['uid'];
+    }
+
     if (route.snapshot.url[0].path === 'registered') {
       let redirect = route.snapshot.params['redirect'];
       this.usersService.create(this.createUserFromAuthenticated());
@@ -42,8 +45,8 @@ export class ProfileComponent implements OnInit {
   ngOnInit() {
     if (!this.uid) {
       this.uid = this.getConnectedUser().uid;
-      this.users = this.usersService.getAll();
     }
+    this.users = this.usersService.getAll();
   }
 
 }

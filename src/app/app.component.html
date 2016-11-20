@@ -1,9 +1,9 @@
-<md-toolbar color="warn">
+<md-toolbar>
   <span>Angular2Twitter</span>
 </md-toolbar>
 
 <div *ngIf="isAuthenticated()">
-  <md-tab-group [selectedIndex]="0">
+  <md-tab-group [selectedIndex]="selectedTab">
     <md-tab>
       <template md-tab-label>
         <a [routerLink]="['timeline']"><i class="material-icons md-36">home</i></a>
@@ -21,7 +21,7 @@
     </md-tab>
   </md-tab-group>
   <div class="well">
-    Logged in as <b>{{ getUserEmail() }}</b> <a href (click)="logout()">Log out</a>
+    Logged in as <b>{{getUserEmail()}}</b> <a href (click)="logout()">Log out</a>
   </div>
   <!--button md-fab (click)="sendTweet()">
     <md-icon class="md-24">create</md-icon>
