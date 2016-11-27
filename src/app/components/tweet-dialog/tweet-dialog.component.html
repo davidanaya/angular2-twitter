@@ -1,8 +1,22 @@
-<h1>{{ (user | async)?.email }}</h1>
-<!--md-list>
+<md-list>
   <md-list-item>
-    <img md-list-avatar [src]="user.image" alt="avatar">
-    <h4><i>@{{user.username}}</i></h4>
+    <img md-list-avatar [src]="(user | async)?.image" alt="avatar">
+    <h4><i>@{{(user | async)?.username}}</i></h4>
   </md-list-item>
-</md-list-->
+</md-list>
+<form class="form-inline" (ngSubmit)="submitForm()" #tweetForm="ngForm" novalidate>
+  <div class="form-group">
+    <label>Text</label>
+    <md-input 
+      placeholder="Write your tweet" 
+      name="tweet" 
+      required 
+      maxlength="140"
+      [(ngModel)]="text">
+    </md-input>			
+  </div>
+  <button md-raised-button (click)="send()" class="btn btn-default" [disabled]="!tweetForm.form.valid">
+    Send
+  </button>
+</form>
 <button md-raised-button (click)="dialogRef.close()">Close dialog</button>

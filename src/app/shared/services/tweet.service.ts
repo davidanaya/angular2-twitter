@@ -1,40 +1,48 @@
 import { Injectable, ViewContainerRef } from '@angular/core';
 import { MdDialogRef, MdDialog, MdDialogConfig } from '@angular/material/dialog';
 
-import { AuthService } from '../../components/auth/auth.service';
-import { UsersService } from './users.service';
+import { AngularFire, FirebaseObjectObservable, FirebaseListObservable } from 'angularfire2';
 
-import { TweetDialogComponent } from '../../components/tweet-dialog/tweet-dialog.component';
+import { AuthService } from '../../components/auth/auth.service';
+import { UsersService } from '../../shared/services/users.service';
+
+import { Tweet } from '../model/tweet.model';
 
 @Injectable()
 export class TweetService {
-
-  private dialogRef: MdDialogRef<TweetDialogComponent>;
-  private user: any;
+  private user: FirebaseObjectObservable<any[]>;
+  private allTweets: FirebaseListObservable<any[]>;
 
   constructor(
-    private dialog: MdDialog,
+    private af: AngularFire,
     private authService: AuthService,
-    private usersService: UsersService) {
+    private usersService: UsersService) {   
+    // get current connected user
+    let uid = this.authService.getUser().uid;
+    this.user = this.usersService.getUser(uid);
   }
 
   getUser(): any {
     return this.user;
   }
 
-  sendTweet(viewContainerRef: ViewContainerRef) {
-    let config = new MdDialogConfig();
-    config.viewContainerRef = viewContainerRef;
-
-    // get current connected user
-    let uid = this.authService.getUser().uid;
-    //this.user = this.usersService.getUser(uid);
-    this.user = { email: 'email@email.com' };
-
-    this.dialogRef = this.dialog.open(TweetDialogComponent, config);
-
-    this.dialogRef.afterClosed().subscribe(result => {
-      this.dialogRef = null;
-    });
+  getAll(): FirebaseListObservable<any[]> {
+    this.allTweets = this.af.database
+      .list('/tweets');
+    return this.allTweets;
   }
+
+  create(tweet: Tweet) {
+    this.update(tweet);
+  }
+
+  update(tweet: Tweet) {
+    this.allTweets
+      .update(tweet.id, tweet)
+      .then(
+        () => console.log(`success updating user ${tweet.id}`),
+        error => console.log('error')
+      )
+  }
+
 }

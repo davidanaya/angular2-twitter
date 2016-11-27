@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { MaterialModule } from '@angular/material';
 import { RouterModule } from '@angular/router';
 import { LocationStrategy, HashLocationStrategy, APP_BASE_HREF } from '@angular/common';
@@ -45,16 +46,6 @@ const firebaseAuthConfig = {
     TweetDialogComponent,
     ProfilePipe
   ],
-  entryComponents: [
-    TweetDialogComponent
-  ],
-  imports: [
-    routing,
-    BrowserModule,
-    AuthModule,
-    AngularFireModule.initializeApp(firebaseConfig, firebaseAuthConfig),
-    MaterialModule.forRoot()
-  ],
   providers: [
     AUTH_PROVIDERS,
     AuthGuard,
@@ -62,6 +53,17 @@ const firebaseAuthConfig = {
     { provide: TweetService, useClass: TweetService },
     { provide: LocationStrategy, useClass: HashLocationStrategy },
     { provide: APP_BASE_HREF, useValue: '/' }
+  ],
+  entryComponents: [
+    TweetDialogComponent
+  ],
+  imports: [
+    routing,
+    BrowserModule,
+    FormsModule,
+    AuthModule,
+    AngularFireModule.initializeApp(firebaseConfig, firebaseAuthConfig),
+    MaterialModule.forRoot()
   ],
   bootstrap: [ AppComponent ]
 })
