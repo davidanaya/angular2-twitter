@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { Tweet } from '../tweet/tweet.model';
+import { Tweet } from '../../shared/model/tweet.model';
 
 const fakeTweet = new Tweet('', 'user', 'username', 'This is a fake tweet!');
 

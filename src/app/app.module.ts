@@ -6,19 +6,22 @@ import { RouterModule } from '@angular/router';
 import { LocationStrategy, HashLocationStrategy, APP_BASE_HREF } from '@angular/common';
 import { AngularFireModule, AuthProviders, AuthMethods } from 'angularfire2';
 
+import { routing } from './app.routing';
+
+import { UsersService } from './shared/services/users.service';
+import { TweetService } from './shared/services/tweet.service';
+
 import { AppComponent } from './app.component';
 import { ProfileComponent } from './components/profile/profile.component';
-import { UsersService } from './shared/services/users.service';
 import { PeopleComponent } from './components/people/people.component';
+import { TimelineComponent } from './components/timeline/timeline.component';
+import { TweetDialogComponent } from './components/tweet-dialog/tweet-dialog.component';
+
 import { AUTH_PROVIDERS } from './components/auth/auth.service';
 import { AuthGuard } from './components/auth/auth.guard';
 import { AuthModule } from './components/auth/auth.module';
-import { TimelineComponent } from './components/timeline/timeline.component';
-import { TweetComponent } from './components/tweet/tweet.component';
-import { TweetService } from './components/tweet/tweet.service';
-import { ProfilePipe } from './components/profile/profile.pipe';
 
-import { routing } from './app.routing';
+import { ProfilePipe } from './components/profile/profile.pipe';
 
 const firebaseConfig = {
   apiKey: "AIzaSyA0F2dWFY9djrRje8oHHN_5f1dQWTl6arg",
@@ -39,8 +42,11 @@ const firebaseAuthConfig = {
     ProfileComponent,
     PeopleComponent,
     TimelineComponent,
-    TweetComponent,
+    TweetDialogComponent,
     ProfilePipe
+  ],
+  entryComponents: [
+    TweetDialogComponent
   ],
   imports: [
     routing,
@@ -51,13 +57,13 @@ const firebaseAuthConfig = {
   ],
   providers: [
     AUTH_PROVIDERS,
+    AuthGuard,
     UsersService,
     { provide: TweetService, useClass: TweetService },
-    AuthGuard,
     { provide: LocationStrategy, useClass: HashLocationStrategy },
     { provide: APP_BASE_HREF, useValue: '/' }
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [ AppComponent ]
 })
 export class AppModule {
 }

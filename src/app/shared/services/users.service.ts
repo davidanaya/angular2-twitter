@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AngularFire, FirebaseListObservable } from 'angularfire2';
+import { AngularFire, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2';
 
 import { User } from '../model/user.model';
 import { AuthService } from '../../components/auth/auth.service';
@@ -8,7 +8,6 @@ import { AuthService } from '../../components/auth/auth.service';
 export class UsersService {
 
   private allUsers: FirebaseListObservable<any[]>;
-  private user: FirebaseListObservable<any[]>;
 
   constructor(private af: AngularFire, private authService: AuthService) {
     this.getAll();
@@ -20,18 +19,9 @@ export class UsersService {
     return this.allUsers;
   }
 
-  /*
-  getUser(uid: string): FirebaseListObservable<any[]> {
-    this.user = this.af.database
-      .list('/users', {
-        query: {
-          orderByChild: 'uid',
-          equalTo: uid
-        }
-      });
-    return this.user;
+  getUser(uid: string): FirebaseObjectObservable<any[]> {
+    return this.af.database.object('/users/' + uid);
   }
-  */
 
   create(user: User) {
     this.update(user);

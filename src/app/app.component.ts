@@ -1,12 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewContainerRef } from '@angular/core';
 import { Routes, Router, NavigationStart } from '@angular/router';
+
+import { AuthService } from './components/auth/auth.service';
+import { TweetService } from './shared/services/tweet.service';
 
 import { ProfileComponent } from './components/profile/profile.component';
 import { PeopleComponent } from './components/people/people.component';
 import { TimelineComponent } from './components/timeline/timeline.component';
-import { TweetService } from './components/tweet/tweet.service';
 
-import { AuthService } from './components/auth/auth.service';
 import { LoginComponent } from './components/auth/login/login.component';
 import { RegisterComponent } from './components/auth/register/register.component';
 
@@ -19,12 +20,14 @@ export class AppComponent implements OnInit {
   private selectedTab: number = 0;
 
   constructor(
+    private viewContainerRef: ViewContainerRef,
     private tweetService: TweetService, 
     private authService: AuthService,
     private router: Router) {
       router.events
         .subscribe(event => { 
           if (event instanceof NavigationStart) {
+            // to select the proper tab in main screen
             this.updateSelectedTabByUrlState(event.url);
           }
         });
@@ -50,7 +53,7 @@ export class AppComponent implements OnInit {
   }
 
   sendTweet() {
-    this.tweetService.sendTweet();
+    this.tweetService.sendTweet(this.viewContainerRef);
   }
 
   ngOnInit() {
